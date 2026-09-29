@@ -142,7 +142,8 @@ Ghi lại **một** lỗi bạn gặp khi deploy lên cloud (build fail, health 
 timeout, sai REDIS_URL, app không đọc `$PORT`...): thông báo lỗi là gì, bạn
 tìm ra nguyên nhân bằng cách nào, và sửa ra sao?
 
-Chưa có lỗi deploy thật để ghi nhận: Railway project và public URL chưa được
-tạo. Quy trình dự kiến là xem log của `railway up`, đối chiếu biến `REDIS_URL`
-và `PORT`, sau đó sửa biến trên dashboard rồi redeploy. Tôi sẽ thay câu trả lời
-này bằng lỗi và log thực tế sau khi deploy.
+Khi tạo domain Railway lần đầu, domain có `Target port: -` nên không truy cập
+được dù container đã chạy. Tôi xem `railway logs` và thấy Uvicorn chạy ở
+`0.0.0.0:8080`; sau đó chạy `railway domain update
+agent-production-f088.up.railway.app --port 8080`. Domain hoạt động và các
+probe `/health`, `/ready` đều trả 200.

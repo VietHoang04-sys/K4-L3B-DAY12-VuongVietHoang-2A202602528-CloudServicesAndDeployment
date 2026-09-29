@@ -18,9 +18,9 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | Chưa được cấp — hoàn tất sau khi chạy `railway domain` |
+| Public URL | https://agent-production-f088.up.railway.app |
 | Platform | Railway |
-| Ngày deploy | Chưa deploy (chuẩn bị ngày 2026-09-29) |
+| Ngày deploy | 2026-09-29 |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -89,7 +89,23 @@ cho CLI/CI và phải lưu trong GitHub Secrets (`RAILWAY_TOKEN`), không đưa 
 Dán output của các lệnh trên vào đây:
 
 ```
-Chưa có output public vì service chưa được deploy.
+```text
+GET /health
+HTTP 200
+{"status":"ok","service":"day12-agent","version":"1.0.0"}
+
+GET /ready
+HTTP 200
+{"status":"ready","redis":true}
+
+POST /ask không có X-API-Key
+HTTP 401
+{"detail":"invalid or missing API key"}
+
+POST /ask có X-API-Key
+HTTP 200
+{"answer":"...","user_id":"cp5-test","history_length":0,"cost_usd":...,"tokens":{"in":...,"out":...}}
+```
 ```
 
 ## Ảnh Chụp Màn Hình
@@ -113,5 +129,6 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
 ```
-Không dùng phương án dự phòng; đang chờ tạo Railway project và public URL.
+Không dùng phương án dự phòng. Service đã deploy trên Railway và đã kiểm tra
+health, readiness, authentication.
 ```
