@@ -10,17 +10,17 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Họ và tên | (điền họ tên) |
-| Mã học viên | (điền mã học viên) |
-| Repo | (điền link repo K4-L3B-DAY12-HoVaTen-MSSV-CloudServicesAndDeployment) |
+| Họ và tên | Vuong Viet Hoang |
+| Mã học viên | 2A202602528 |
+| Repo | https://github.com/VietHoang04-sys/K4-L3B-DAY12-VuongVietHoang-2A202602528-CloudServicesAndDeployment |
 
 ## Service
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | https://TODO-thay-bang-url-that.up.railway.app |
-| Platform | Railway / Render / Cloud Run — (điền platform bạn dùng) |
-| Ngày deploy | (điền ngày) |
+| Public URL | Chưa được cấp — hoàn tất sau khi chạy `railway domain` |
+| Platform | Railway |
+| Ngày deploy | Chưa deploy (chuẩn bị ngày 2026-09-29) |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -30,7 +30,7 @@ Ghi tên biến và **nguồn giá trị**, không ghi giá trị:
 |------|--------|---------|
 | `PORT` | ✅ | platform tự gán |
 | `AGENT_API_KEY` | ✅ | đặt trong dashboard, không nằm trong repo |
-| `REDIS_URL` | ✅ | (điền: Redis add-on của platform / Upstash / ...) |
+| `REDIS_URL` | ✅ | Redis add-on của Railway |
 | `RATE_LIMIT_PER_MINUTE` | ✅ | 10 |
 | `MONTHLY_BUDGET_USD` | ✅ | 10.0 |
 | `LOG_LEVEL` | ✅ | INFO |
@@ -68,12 +68,28 @@ for i in $(seq 1 15); do
 done; echo
 ```
 
+## Quy Trình Deploy Railway
+
+1. Cài Railway CLI: `npm i -g @railway/cli`.
+2. Chạy `railway login`, sau đó `railway init` trong thư mục repo này.
+3. Tạo Redis: `railway add --database redis`.
+4. Trong service agent, đặt các biến `AGENT_API_KEY`, `RATE_LIMIT_PER_MINUTE=10`,
+   `MONTHLY_BUDGET_USD=10.0`, `LOG_LEVEL=INFO`. Gắn `REDIS_URL` do Redis service
+   cung cấp và không ghi giá trị secret vào repo.
+5. Chạy `railway up`, rồi `railway domain` để lấy public HTTPS URL.
+6. Thay URL ở bảng trên, dán output kiểm tra vào mục bên dưới, rồi chạy
+   `pytest tests/test_cp5.py -v`.
+
+Railway tự cấp `PORT`; không đặt cứng PORT trên dashboard. Token Railway chỉ cần
+cho CLI/CI và phải lưu trong GitHub Secrets (`RAILWAY_TOKEN`), không đưa vào
+`.env` hoặc tài liệu.
+
 ## Kết Quả Chạy Thật
 
 Dán output của các lệnh trên vào đây:
 
 ```
-(điền output)
+Chưa có output public vì service chưa được deploy.
 ```
 
 ## Ảnh Chụp Màn Hình
@@ -97,5 +113,5 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
 ```
-(điền lý do nếu dùng phương án dự phòng, ngược lại xóa mục này)
+Không dùng phương án dự phòng; đang chờ tạo Railway project và public URL.
 ```
